@@ -26,16 +26,14 @@ class List extends React.Component {
 
     removeMongo = async (index, id) => {
         this.props.delTodoMethod(index)
-        let res = await fetch('/delete/'+id, {
+        await fetch('/delete/'+id, {
             method : 'DELETE'})
-        alert(await res.text())
     }
 
     completeMongo = async (index, id) => {
         this.props.compTodoMethod(index)
-        let res = await fetch('/complete/'+id, {
+        await fetch('/complete/'+id, {
             method : 'PUT'})
-        alert(await res.text())
     }
 
 

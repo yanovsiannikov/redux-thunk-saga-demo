@@ -6,11 +6,10 @@ const EditTodo = props => {
 
     const mongoEdit = async (input, id, index) => {
         props.updTodoMethod(input, index)
-        let res = await fetch('/edit/'+id, {
+        await fetch('/edit/'+id, {
             method : 'PUT',
             headers: {'Content-Type':'application/json'},
             body : JSON.stringify({"text" : input})})
-        alert(await res.text())
     }
 
     let input

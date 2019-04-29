@@ -19,7 +19,6 @@ app.use(express.json());
 
 // Импорт маршрутов.
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 
 // Подключаем статику
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,7 +30,6 @@ app.set('view engine', 'hbs');
 
 // Подключаем импортированные маршруты с определенным url префиксом.
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // Обработка ошибок.
 app.use((req, res, next) => {

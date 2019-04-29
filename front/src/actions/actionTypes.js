@@ -7,3 +7,7 @@ export const UPDATE_TODO = 'UPDATE_TODO';
 export const MONGO_TASKS = 'MONGO_TASKS';
 export const MONGO_START = 'MONGO_START';
 export const MONGO_ERROR = 'MONGO_ERROR';
+
+//Redux Saga
+export const MONGO_SAGA = 'MONGO_SAGA';
+

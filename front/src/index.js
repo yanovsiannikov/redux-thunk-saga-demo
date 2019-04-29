@@ -6,15 +6,22 @@ import { BrowserRouter, Link, Route } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './reducers/reducer';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension'
+
+import createSagaMiddleWare from 'redux-saga'
+import {watchTasks} from './actions/actions'
 
 import AddTodo from './components/AddTask'
 import List from './components/List'
 
 const composeEnhancers = composeWithDevTools({})
 
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)))
+const saga = createSagaMiddleWare();
+
+const store = createStore(reducers, composeEnhancers(applyMiddleware(saga)))
+
+saga.run(watchTasks)
 
 const App = () => 
         <div>

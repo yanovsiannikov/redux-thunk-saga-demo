@@ -2,6 +2,7 @@ import React from 'react';
 import { delTodo, compTodo, mongoTodo, mongoSt, mongoEr } from '../actions/actions'
 import { connect } from "react-redux";
 import EditTodo from "../components/EditTask";
+import {getTasksSaga} from "../actions/actions"
 
 const mapStateToProps = (state, ownProps) => ({
     tasks: state.todos,
@@ -10,23 +11,25 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 class List extends React.Component {
-
-    getTasks = () => {
-        return async (dispatch) => {
-        dispatch(mongoSt());
-        try {
-            let data = await fetch('/getall')
-            let res = await data.json()
-            dispatch(mongoTodo(res))
-        }
-        catch {
-            dispatch(mongoEr())
-        }}
-
-}
+//Thunk
+//     getTasks = () => {
+//         return async (dispatch) => {
+//         dispatch(mongoSt());
+//         try {
+//             let data = await fetch('/getall')
+//             let res = await data.json()
+//             dispatch(mongoTodo(res))
+//         }
+//         catch {
+//             dispatch(mongoEr())
+//         }}
+//
+// }
     async componentWillMount() {
 
-        this.props.dispatch(this.getTasks()) //Redux-thunk
+        // this.props.dispatch(this.getTasks()) //Redux-thunk
+
+        this.props.dispatch(getTasksSaga()) //Redux-Saga
 
     }
     render () {return (

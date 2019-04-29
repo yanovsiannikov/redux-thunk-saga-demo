@@ -10,37 +10,49 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 class List extends React.Component {
-
-    getTasks = () => {
-        return async (dispatch) => {
+    //Redux-thunk starts here
+    getTasks = () => async dispatch => {
         dispatch(mongoSt());
         try {
             let data = await fetch('/getall')
             let res = await data.json()
             dispatch(mongoTodo(res))
         }
-        catch {
+        catch (err) {
             dispatch(mongoEr())
-        }}
+        }
 
 }
+
+    removeMongo = async (index, id) => {
+        this.props.delTodoMethod(index)
+        let res = await fetch('/delete/'+id, {
+            method : 'DELETE'})
+        alert(await res.text())
+    }
+
+    completeMongo = async (index, id) => {
+        this.props.compTodoMethod(index)
+        let res = await fetch('/complete/'+id, {
+            method : 'PUT'})
+        alert(await res.text())
+    }
+
+
     async componentWillMount() {
-
-        this.props.dispatch(this.getTasks()) //Redux-thunk
-
+        this.props.dispatch(this.getTasks())
     }
     render () {return (
             <div>
                 <ol>
-                    {this.props.loading && 'LOADING...'}
-                    {this.props.error && 'Something went wrong...'}
-                    {this.props.tasks.map((task, index) =>
+                    {this.props.loading ? 'LOADING...' : this.props.error ? 'Something went wrong.Unable to load Data' :
+                    this.props.tasks.map((task, index) =>
                         <li key={task._id}>
-                            {task.title}{task.completed && '+'}
+                            {task.title}{task.completed && ' ##COMPLETED'}
                             <div>
-                                <button onClick={() => this.props.delTodoMethod(index)}>Delete</button>
-                                <button onClick={() => this.props.compTodoMethod(index)}>Complete</button>
-                                <EditTodo id={index} />
+                                <button onClick={() => this.removeMongo(index,task._id)}>Delete</button>
+                                <button onClick={() => this.completeMongo(index,task._id)}>Complete</button>
+                                <EditTodo index={index} id={task._id}/>
                             </div>
                         </li>
                     )}

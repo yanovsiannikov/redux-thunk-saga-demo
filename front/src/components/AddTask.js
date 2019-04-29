@@ -7,7 +7,7 @@ const AddTodo = props => {
     const addTask = async (input) => {
         props.addTodoMethod(input);
         let res = await fetch('/add', {
-            method : 'Post',
+            method : 'POST',
             headers: {'Content-Type':'application/json'},
             body : JSON.stringify({"text" : input})})
         alert(await res.text())

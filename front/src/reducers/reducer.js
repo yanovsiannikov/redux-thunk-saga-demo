@@ -1,4 +1,4 @@
-import {ADD_TODO, DELETE_TODO, UPDATE_TODO, COMPLETE_TODO, MONGO_TASKS, MONGO_START} from '../actions/actionTypes';
+import {ADD_TODO, DELETE_TODO, UPDATE_TODO, COMPLETE_TODO, MONGO_TASKS, MONGO_START, MONGO_ERROR} from '../actions/actionTypes';
 
 const initialState = {
     todos: [],
@@ -8,6 +8,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
    switch (action.type) {
+       case MONGO_ERROR :
+           return {...state, loading : false, error : true}
        case MONGO_START :
            return {...state, loading : true}
        case MONGO_TASKS :

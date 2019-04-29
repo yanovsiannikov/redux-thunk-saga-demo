@@ -1,5 +1,9 @@
-###Thunk-Saga-Demo
+# Redux-thunk && Saga demo
 
 Redux-Thunk and Redux-Saga fast demonstation
 
-Can be to much unused code.
+- master - redux-thunk demo
+
+- saga - redux-saga demo
+
+##### Can be to much unused code.
